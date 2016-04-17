@@ -18,16 +18,12 @@ package org.springframework.samples.petclinic.domain.service;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.domain.model.Owner;
 import org.springframework.samples.petclinic.domain.model.Pet;
 import org.springframework.samples.petclinic.domain.model.PetType;
-import org.springframework.samples.petclinic.domain.model.Vet;
-import org.springframework.samples.petclinic.domain.visit.Visit;
 import org.springframework.samples.petclinic.domain.repository.OwnerRepository;
 import org.springframework.samples.petclinic.domain.repository.PetRepository;
-import org.springframework.samples.petclinic.domain.repository.VetRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,13 +37,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class ClinicService {
 
     private PetRepository petRepository;
-    private VetRepository vetRepository;
     private OwnerRepository ownerRepository;
 
     @Autowired
-    public ClinicService(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository) {
+    public ClinicService(PetRepository petRepository, OwnerRepository ownerRepository) {
         this.petRepository = petRepository;
-        this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
     }
 
@@ -79,12 +73,6 @@ public class ClinicService {
     @Transactional
     public void savePet(Pet pet) throws DataAccessException {
         petRepository.save(pet);
-    }
-
-    @Transactional(readOnly = true)
-    @Cacheable(value = "vets")
-    public Collection<Vet> findVets() throws DataAccessException {
-        return vetRepository.findAll();
     }
 
 }

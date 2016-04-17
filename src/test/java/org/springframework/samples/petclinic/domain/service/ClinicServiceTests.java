@@ -27,7 +27,6 @@ import org.springframework.samples.petclinic.infrastructure.config.BusinessConfi
 import org.springframework.samples.petclinic.domain.model.Owner;
 import org.springframework.samples.petclinic.domain.model.Pet;
 import org.springframework.samples.petclinic.domain.model.PetType;
-import org.springframework.samples.petclinic.domain.model.Vet;
 import org.springframework.samples.petclinic.infrastructure.util.EntityUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -143,17 +142,6 @@ public class ClinicServiceTests {
 
 	    pet7 = this.clinicService.findPetById(7);
 	    assertThat(pet7.getName()).isEqualTo(newName);
-	}
-
-	@Test
-	public void shouldFindVets() {
-	    Collection<Vet> vets = this.clinicService.findVets();
-	
-	    Vet vet = EntityUtils.getById(vets, Vet.class, 3);
-	    assertThat(vet.getLastName()).isEqualTo("Douglas");
-	    assertThat(vet.getNrOfSpecialties()).isEqualTo(2);
-	    assertThat(vet.getSpecialties().get(0).getName()).isEqualTo("dentistry");
-	    assertThat(vet.getSpecialties().get(1).getName()).isEqualTo("surgery");
 	}
 
 }

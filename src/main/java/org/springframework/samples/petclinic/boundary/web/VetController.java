@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.domain.model.Vet;
-import org.springframework.samples.petclinic.domain.service.ClinicService;
+import org.springframework.samples.petclinic.domain.vet.Vet;
+import org.springframework.samples.petclinic.domain.vet.VetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,11 +38,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Controller
 public class VetController {
 
-    private final ClinicService clinicService;
+    private final VetService vetService;
 
     @Autowired
-    public VetController(ClinicService clinicService) {
-        this.clinicService = clinicService;
+    public VetController(VetService vetService) {
+        this.vetService = vetService;
     }
 
     @RequestMapping(value={"/vets.xml","/vets.html"})
@@ -50,7 +50,7 @@ public class VetController {
         // Here we are returning an object of type 'Vets' rather than a collection of Vet objects 
         // so it is simpler for Object-Xml mapping
         Vets vets = new Vets();
-        vets.getVetList().addAll(this.clinicService.findVets());
+        vets.getVetList().addAll(this.vetService.findVets());
         model.put("vets", vets);
         return "vets/vetList";
     }
@@ -60,7 +60,7 @@ public class VetController {
         // Here we are returning an object of type 'Vets' rather than a collection of Vet objects 
         // so it is simpler for JSon/Object mapping
         Vets vets = new Vets();
-        vets.getVetList().addAll(this.clinicService.findVets());
+        vets.getVetList().addAll(this.vetService.findVets());
         return vets;
     }
 
