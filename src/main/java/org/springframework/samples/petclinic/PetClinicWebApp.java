@@ -28,7 +28,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.infrastructure.config;
+package org.springframework.samples.petclinic;
 
 import javax.annotation.PostConstruct;
 
@@ -38,15 +38,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
+import org.springframework.samples.petclinic.infrastructure.config.BusinessConfig;
+import org.springframework.samples.petclinic.infrastructure.config.ToolsConfig;
 
 @Configuration
 @Import({BusinessConfig.class, ToolsConfig.class})
-public class RootApplicationContextConfig {
+public class PetClinicWebApp {
 	
-    private static final Logger LOG = LoggerFactory.getLogger(RootApplicationContextConfig.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PetClinicWebApp.class);
 
     @Autowired
-    private Environment         env;
+    private Environment env;
 
     /**
      * Application custom initialization code.
@@ -66,6 +68,5 @@ public class RootApplicationContextConfig {
             }
         }
     }
-
 
 }

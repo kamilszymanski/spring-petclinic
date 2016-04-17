@@ -18,7 +18,7 @@
 	</context-param>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>org.springframework.samples.petclinic.infrastructure.config.RootApplicationContextConfig</param-value>
+		<param-value>org.springframework.samples.petclinic.PetClinicWebApp</param-value>
 	</context-param>	
     
 
