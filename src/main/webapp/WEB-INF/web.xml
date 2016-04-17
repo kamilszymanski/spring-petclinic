@@ -18,7 +18,7 @@
 	</context-param>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>org.springframework.samples.petclinic.config.RootApplicationContextConfig</param-value>
+		<param-value>org.springframework.samples.petclinic.infrastructure.config.RootApplicationContextConfig</param-value>
 	</context-param>	
     
 
@@ -38,7 +38,7 @@
 		</init-param>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>org.springframework.samples.petclinic.config.MvcCoreConfig</param-value>
+			<param-value>org.springframework.samples.petclinic.infrastructure.config.MvcCoreConfig</param-value>
 		</init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
