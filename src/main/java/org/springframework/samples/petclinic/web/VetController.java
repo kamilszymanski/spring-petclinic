@@ -15,14 +15,19 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Vets;
+import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author Juergen Hoeller
@@ -34,7 +39,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class VetController {
 
     private final ClinicService clinicService;
-
 
     @Autowired
     public VetController(ClinicService clinicService) {
@@ -60,5 +64,18 @@ public class VetController {
         return vets;
     }
 
+    @XmlRootElement
+    public static class Vets {
 
+        private List<Vet> vets;
+
+        @XmlElement
+        public List<Vet> getVetList() {
+            if (vets == null) {
+                vets = new ArrayList<>();
+            }
+            return vets;
+        }
+
+    }
 }
