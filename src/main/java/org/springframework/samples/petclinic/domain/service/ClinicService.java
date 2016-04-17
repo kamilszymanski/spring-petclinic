@@ -24,11 +24,10 @@ import org.springframework.samples.petclinic.domain.model.Owner;
 import org.springframework.samples.petclinic.domain.model.Pet;
 import org.springframework.samples.petclinic.domain.model.PetType;
 import org.springframework.samples.petclinic.domain.model.Vet;
-import org.springframework.samples.petclinic.domain.model.Visit;
+import org.springframework.samples.petclinic.domain.visit.Visit;
 import org.springframework.samples.petclinic.domain.repository.OwnerRepository;
 import org.springframework.samples.petclinic.domain.repository.PetRepository;
 import org.springframework.samples.petclinic.domain.repository.VetRepository;
-import org.springframework.samples.petclinic.domain.repository.VisitRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,14 +43,12 @@ public class ClinicService {
     private PetRepository petRepository;
     private VetRepository vetRepository;
     private OwnerRepository ownerRepository;
-    private VisitRepository visitRepository;
 
     @Autowired
-    public ClinicService(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository) {
+    public ClinicService(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
-        this.visitRepository = visitRepository;
     }
 
     @Transactional(readOnly = true)
@@ -72,11 +69,6 @@ public class ClinicService {
     @Transactional
     public void saveOwner(Owner owner) throws DataAccessException {
         ownerRepository.save(owner);
-    }
-
-    @Transactional
-    public void saveVisit(Visit visit) throws DataAccessException {
-        visitRepository.save(visit);
     }
 
     @Transactional(readOnly = true)
