@@ -20,9 +20,9 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.domain.model.Pet;
+import org.springframework.samples.petclinic.domain.client.Pet;
 import org.springframework.samples.petclinic.domain.visit.Visit;
-import org.springframework.samples.petclinic.domain.service.ClinicService;
+import org.springframework.samples.petclinic.domain.client.ClientService;
 import org.springframework.samples.petclinic.domain.visit.VisitService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -44,12 +44,12 @@ public class VisitController {
 
     private final VisitService visitService;
 
-    private final ClinicService clinicService;
+    private final ClientService clientService;
 
     @Autowired
-    public VisitController(VisitService visitService, ClinicService clinicService) {
+    public VisitController(VisitService visitService, ClientService clientService) {
         this.visitService = visitService;
-        this.clinicService = clinicService;
+        this.clientService = clientService;
     }
 
     @InitBinder
@@ -68,7 +68,7 @@ public class VisitController {
      */
     @ModelAttribute("visit")
     public Visit loadPetWithVisit(@PathVariable("petId") int petId) {
-        Pet pet = this.clinicService.findPetById(petId);
+        Pet pet = this.clientService.findPetById(petId);
         Visit visit = new Visit();
         pet.addVisit(visit);  
         return visit;
@@ -93,7 +93,7 @@ public class VisitController {
 
     @RequestMapping(value = "/owners/*/pets/{petId}/visits", method = RequestMethod.GET)
     public String showVisits(@PathVariable int petId, Map<String, Object> model) {
-        model.put("visits", this.clinicService.findPetById(petId).getVisits());
+        model.put("visits", this.clientService.findPetById(petId).getVisits());
         return "visitList";
     }
 

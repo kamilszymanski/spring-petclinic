@@ -19,10 +19,10 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.domain.model.Owner;
-import org.springframework.samples.petclinic.domain.model.Pet;
-import org.springframework.samples.petclinic.domain.model.PetType;
-import org.springframework.samples.petclinic.domain.service.ClinicService;
+import org.springframework.samples.petclinic.domain.client.Owner;
+import org.springframework.samples.petclinic.domain.client.Pet;
+import org.springframework.samples.petclinic.domain.client.PetType;
+import org.springframework.samples.petclinic.domain.client.ClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -45,17 +45,17 @@ import javax.validation.Valid;
 @SessionAttributes("pet")
 public class PetController {
 
-    private final ClinicService clinicService;
+    private final ClientService clientService;
 
 
     @Autowired
-    public PetController(ClinicService clinicService) {
-        this.clinicService = clinicService;
+    public PetController(ClientService clientService) {
+        this.clientService = clientService;
     }
 
     @ModelAttribute("types")
     public Collection<PetType> populatePetTypes() {
-        return this.clinicService.findPetTypes();
+        return this.clientService.findPetTypes();
     }
 
     @InitBinder
@@ -66,7 +66,7 @@ public class PetController {
 
     @RequestMapping(value = "/owners/{ownerId}/pets/new", method = RequestMethod.GET)
     public String initCreationForm(@PathVariable("ownerId") int ownerId, Map<String, Object> model) {
-        Owner owner = this.clinicService.findOwnerById(ownerId);
+        Owner owner = this.clientService.findOwnerById(ownerId);
         Pet pet = new Pet();
         owner.addPet(pet);
         model.put("pet", pet);
@@ -78,7 +78,7 @@ public class PetController {
         if (result.hasErrors()) {
             return "pets/createOrUpdatePetForm";
         } else {
-            this.clinicService.savePet(pet);
+            this.clientService.savePet(pet);
             status.setComplete();
             return "redirect:/owners/{ownerId}";
         }
@@ -86,7 +86,7 @@ public class PetController {
 
     @RequestMapping(value = "/owners/*/pets/{petId}/edit", method = RequestMethod.GET)
     public String initUpdateForm(@PathVariable("petId") int petId, Map<String, Object> model) {
-        Pet pet = this.clinicService.findPetById(petId);
+        Pet pet = this.clientService.findPetById(petId);
         model.put("pet", pet);
         return "pets/createOrUpdatePetForm";
     }
@@ -96,7 +96,7 @@ public class PetController {
         if (result.hasErrors()) {
             return "pets/createOrUpdatePetForm";
         } else {
-            this.clinicService.savePet(pet);
+            this.clientService.savePet(pet);
             status.setComplete();
             return "redirect:/owners/{ownerId}";
         }

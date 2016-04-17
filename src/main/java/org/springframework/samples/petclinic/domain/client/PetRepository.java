@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.domain.repository;
+package org.springframework.samples.petclinic.domain.client;
 
-import java.util.Collection;
+import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.samples.petclinic.domain.model.Owner;
 
-public interface OwnerRepository extends Repository<Owner, Integer> {
+interface PetRepository extends Repository<Pet, Integer> {
 
-	@Query("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE :lastName%")
-	Collection<Owner> findByLastName(@Param("lastName") String lastName);
+    @Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
+    List<PetType> findPetTypes() throws DataAccessException;
 
-	@Query("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.id =:id")
-	Owner findById(@Param("id") int id);
+    Pet findById(int id);
 
-	void save(Owner owner);
+    void save(Pet pet);
 }
