@@ -13,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.config.BusinessConfig;
 import org.springframework.samples.petclinic.config.MvcCoreConfig;
 import org.springframework.samples.petclinic.config.ToolsConfig;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,7 +20,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 /**
  * Test class for the UserResource REST controller.
@@ -31,7 +29,6 @@ import org.springframework.web.context.WebApplicationContext;
 @ContextHierarchy({
         @ContextConfiguration(classes = { BusinessConfig.class, ToolsConfig.class }),
         @ContextConfiguration(classes = MvcCoreConfig.class)})
-@ActiveProfiles("spring-data-jpa")
 public class VetControllerTests {
 
     @Autowired
